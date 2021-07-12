@@ -6,6 +6,7 @@ import {
   Button,
   TouchableWithoutFeedback,
   Keyboard,
+  Alert,
 } from "react-native";
 
 import Card from "../components/Card";
@@ -14,28 +15,29 @@ import Input from "../components/Input";
 
 export default function StartScreen() {
   const [value, setValue] = useState("");
-  const [confirmed, setConfirmed] = useState(false)
-  const [selectedNumber, setSelectedNumber] = useState()
+  const [confirmed, setConfirmed] = useState(false);
+  const [selectedNumber, setSelectedNumber] = useState();
 
   const handleNumInput = (inputText) => {
     setValue(inputText.replace(/[^0-9]/g, ""));
-    setConfirmed(false)
-  
+    setConfirmed(false);
   };
   const handleConfirm = () => {
-    const chosenNumber = parseInt(value)
+    const chosenNumber = parseInt(value);
     if (isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 99) {
-      return
-    }
-    setConfirmed(true)
-    setSelectedNumber(chosenNumber)
-    setValue('')
-  }
 
-  let confirmedOutput
+      Alert.alert('Invalid number!', 'Input must be between 1 and 99', [{text: "Okay", style: "destructive", onPress: () => setValue("") }])
+      return;
+    }
+    setConfirmed(true);
+    setSelectedNumber(chosenNumber);
+    setValue("");
+  };
+
+  let confirmedOutput;
 
   if (confirmed) {
-    confirmedOutput = <Text>Chosen Number: {selectedNumber}</Text>
+    confirmedOutput = <Text>Chosen Number: {selectedNumber}</Text>;
   }
 
   return (
