@@ -14,7 +14,7 @@ import Colors from "../constants/colors";
 import Input from "../components/Input";
 import NumberContainer from "../components/NumberContainer";
 
-export default function StartScreen() {
+export default function StartScreen({ onStart }) {
   const [value, setValue] = useState("");
   const [confirmed, setConfirmed] = useState(false);
   const [selectedNumber, setSelectedNumber] = useState();
@@ -34,7 +34,7 @@ export default function StartScreen() {
     setConfirmed(true);
     setSelectedNumber(chosenNumber);
     setValue("");
-    Keyboard.dismiss()
+    Keyboard.dismiss();
   };
 
   let confirmedOutput;
@@ -44,7 +44,7 @@ export default function StartScreen() {
       <Card style={styles.summaryContainer}>
         <Text>You selected:</Text>
         <NumberContainer>{selectedNumber}</NumberContainer>
-        <Button title="START GAME" />
+        <Button title="START GAME" onPress={() => onStart(selectedNumber)} />
       </Card>
     );
   }
@@ -129,5 +129,4 @@ const styles = StyleSheet.create({
     marginTop: 20,
     alignItems: "center",
   },
-
 });
