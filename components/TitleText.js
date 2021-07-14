@@ -12,7 +12,6 @@ export default function TitleText(props) {
 const styles = StyleSheet.create({
   text: {
     fontFamily: "open-sans-bold",
-    marginBottom: 15,
     fontSize: 18
   }
 })
