@@ -3,7 +3,8 @@ import { StyleSheet, View, Text, Button, Alert } from "react-native";
 
 import NumberContainer from "../components/NumberContainer";
 import Card from "../components/Card";
-import DefaultStyles from "../constants/default-styles"
+import MainButton from "../components/MainButton";
+import DefaultStyles from "../constants/default-styles";
 
 const genRandomBetween = (min, max, exclude) => {
   min = Math.ceil(min); // rounded up
@@ -17,44 +18,46 @@ const genRandomBetween = (min, max, exclude) => {
   }
 };
 
-
 function GameScreen({ userChoice, onGameOver }) {
   const [currentGuess, setGuess] = useState(
     genRandomBetween(1, 100, userChoice)
   );
-  const [rounds, setRounds] = useState(0)
+  const [rounds, setRounds] = useState(0);
 
   // useRef preserves values across re-renders
-  const currentLow = useRef(1)
-  const currentHigh = useRef(100)
+  const currentLow = useRef(1);
+  const currentHigh = useRef(100);
 
   useEffect(() => {
     if (currentGuess === userChoice) {
-      onGameOver(rounds)
+      onGameOver(rounds);
     }
-  }, [currentGuess, userChoice, onGameOver])
-
-  
+  }, [currentGuess, userChoice, onGameOver]);
 
   const handleNextGuess = (direction) => {
     if (
       (direction === "lower" && currentGuess < userChoice) ||
       (direction === "greater" && currentGuess > userChoice)
     ) {
-      Alert.alert("Oops!",
+      Alert.alert(
+        "Oops!",
         "I'm not upset that you lied to me, I'm upset that from now on I can't believe you.  - Nietzche",
         [{ text: "Sorry!", style: "cancel" }]
       );
       return;
     }
     if (direction === "lower") {
-      currentHigh.current = currentGuess
+      currentHigh.current = currentGuess;
     } else {
-      currentLow.current = currentGuess
+      currentLow.current = currentGuess;
     }
-    const nextNumber = genRandomBetween(currentLow.current, currentHigh.current, currentGuess)
-    setGuess(nextNumber)
-    setRounds(prev => prev + 1)
+    const nextNumber = genRandomBetween(
+      currentLow.current,
+      currentHigh.current,
+      currentGuess
+    );
+    setGuess(nextNumber);
+    setRounds((prev) => prev + 1);
   };
 
   return (
@@ -62,18 +65,20 @@ function GameScreen({ userChoice, onGameOver }) {
       <Text style={DefaultStyles.title}>Opponent's Guess</Text>
       <NumberContainer>{currentGuess}</NumberContainer>
       <Card style={styles.btnContainer}>
-        <Button
-          title="LOWER"
+        <MainButton
           onPress={() => {
             handleNextGuess("lower");
           }}
-        />
-        <Button
-          title="GREATER"
+        >
+          LOWER
+        </MainButton>
+        <MainButton
           onPress={() => {
             handleNextGuess("greater");
           }}
-        />
+        >
+          GREATER
+        </MainButton>
       </Card>
     </View>
   );
@@ -89,8 +94,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     marginTop: 20,
-    width: 300,
-    maxWidth: "80%",
+    width: 400,
+    maxWidth: "90%",
   },
 });
 

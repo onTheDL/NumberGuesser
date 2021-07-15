@@ -4,6 +4,7 @@ import { StyleSheet, View, Button, Image, Text } from "react-native";
 import BodyText from "../components/BodyText";
 import TitleText from "../components/TitleText";
 import Colors from "../constants/colors";
+import MainButton from "../components/MainButton"
 
 export default function GameOverScreen({ guessRounds, userNumber, onRestart }) {
   return (
@@ -25,7 +26,9 @@ export default function GameOverScreen({ guessRounds, userNumber, onRestart }) {
         </BodyText>
       </View>
 
-      <Button title="Restart" onPress={onRestart} />
+      <MainButton onPress={onRestart}>
+        NEW GAME
+      </MainButton>
     </View>
   );
 }

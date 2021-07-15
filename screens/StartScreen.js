@@ -13,8 +13,9 @@ import Card from "../components/Card";
 import Colors from "../constants/colors";
 import Input from "../components/Input";
 import NumberContainer from "../components/NumberContainer";
-import BodyText from "../components/BodyText"
-import TitleText from "../components/TitleText"
+import BodyText from "../components/BodyText";
+import TitleText from "../components/TitleText";
+import MainButton from "../components/MainButton";
 
 export default function StartScreen({ onStart }) {
   const [value, setValue] = useState("");
@@ -46,7 +47,9 @@ export default function StartScreen({ onStart }) {
       <Card style={styles.summaryContainer}>
         <BodyText>You selected:</BodyText>
         <NumberContainer>{selectedNumber}</NumberContainer>
-        <Button title="START GAME" onPress={() => onStart(selectedNumber)} />
+        <MainButton onPress={() => onStart(selectedNumber)}>
+          START GAME
+        </MainButton>
       </Card>
     );
   }
