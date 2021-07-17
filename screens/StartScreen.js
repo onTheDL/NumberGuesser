@@ -109,8 +109,9 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
   },
   inputContainer: {
-    width: 300,
-    maxWidth: "80%",
+    width: '80%',
+    maxWidth: '95%',
+    minWidth: 300,
     alignItems: "center",
   },
   title: {
