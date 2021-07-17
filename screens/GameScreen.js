@@ -6,6 +6,7 @@ import {
   Alert,
   ScrollView,
   FlatList,
+  Dimensions,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -78,7 +79,7 @@ function GameScreen({ userChoice, onGameOver }) {
 
   return (
     <View style={styles.screen}>
-      <Text style={DefaultStyles.title}>Opponent's Guess</Text>
+      <Text style={DefaultStyles.title}>Computer's Guess</Text>
       <NumberContainer>{currentGuess}</NumberContainer>
       <Card style={styles.btnContainer}>
         <MainButton
@@ -123,9 +124,13 @@ const styles = StyleSheet.create({
   btnContainer: {
     flexDirection: "row",
     justifyContent: "space-around",
-    marginTop: 20,
+    marginTop: Dimensions.get("window").height > 600 ? 10 : 5,
     width: 400,
     maxWidth: "90%",
+  },
+  listContainer: {
+    width: Dimensions.get("window").width > 350 ? "60%" : "80%",
+    flex: 1,
   },
   listItem: {
     borderColor: "#ccc",
@@ -136,10 +141,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     width: "100%",
-  },
-  listContainer: {
-    width: "60%",
-    flex: 1,
   },
   list: {
     flexGrow: 1,
