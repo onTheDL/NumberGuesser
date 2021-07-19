@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   View,
@@ -14,11 +14,39 @@ import Colors from "../constants/colors";
 import MainButton from "../components/MainButton";
 
 export default function GameOverScreen({ guessRounds, userNumber, onRestart }) {
+  const [availDeviceWidth, setAvailDeviceWidth] = useState(
+    Dimensions.get("window").width
+  );
+  const [availDeviceHeight, setAvailDeviceHeight] = useState(
+    Dimensions.get("window").height
+  );
+
+  useEffect(() => {
+    const updateLayout = () => {
+      setAvailDeviceHeight(Dimensions.get("window").height);
+      setAvailDeviceWidth(Dimensions.get("window").width);
+    };
+    Dimensions.addEventListener("change", updateLayout);
+
+    return () => {
+      Dimensions.removeEventListener("change", updateLayout);
+    };
+  });
   return (
     <ScrollView>
       <View style={styles.screen}>
         <TitleText>The Game is Over!</TitleText>
-        <View style={styles.imageContainer}>
+        <View
+          style={{
+            ...styles.imageContainer,
+            ...{
+              width: availDeviceWidth * 0.7,
+              height: availDeviceWidth * 0.7,
+              borderRadius: (availDeviceWidth * 0.7) / 2,
+              marginVertical: availDeviceHeight / 30,
+            },
+          }}
+        >
           <Image
             fadeDuration={800}
             source={require("../assets/success.png")}
@@ -29,13 +57,13 @@ export default function GameOverScreen({ guessRounds, userNumber, onRestart }) {
         <View
           style={{
             marginHorizontal: 30,
-            marginVertical: Dimensions.get("window").height / 60,
+            marginVertical: availDeviceHeight / 60,
           }}
         >
           <BodyText
             style={{
               textAlign: "center",
-              fontSize: Dimensions.get("window").height < 400 ? 16 : 20,
+              fontSize: availDeviceHeight < 400 ? 16 : 20,
             }}
           >
             Your phone needed{" "}
@@ -55,16 +83,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    paddingTop: "10%",
+    paddingVertical: 10,
   },
   imageContainer: {
-    width: Dimensions.get("window").width * 0.7,
-    height: Dimensions.get("window").width * 0.7,
-    borderRadius: (Dimensions.get("window").width * 0.7) / 2,
     borderWidth: 3,
     borderColor: "black",
     overflow: "hidden",
-    marginVertical: Dimensions.get("window").height / 30,
   },
   image: {
     width: "100%",
