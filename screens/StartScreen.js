@@ -28,11 +28,20 @@ export default function StartScreen({ onStart }) {
     Dimensions.get("window").width / 4
   );
 
-  const updateLayout = () => {
-    setButtonWidth(Dimensions.get("window").width / 4);
-  };
+ 
 
-  Dimensions.addEventListener("change", updateLayout);
+  useEffect(() => {
+    const updateLayout = () => {
+      setButtonWidth(Dimensions.get("window").width / 4);
+    };
+  
+    Dimensions.addEventListener("change", updateLayout);
+
+    //CLEAN UP FXN
+    return () => {
+      Dimensions.removeEventListener('change', updateLayout)
+    }
+  }) 
 
   const handleNumInput = (inputText) => {
     setValue(inputText.replace(/[^0-9]/g, ""));
