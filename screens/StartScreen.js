@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -24,6 +24,15 @@ export default function StartScreen({ onStart }) {
   const [value, setValue] = useState("");
   const [confirmed, setConfirmed] = useState(false);
   const [selectedNumber, setSelectedNumber] = useState();
+  const [buttonWidth, setButtonWidth] = useState(
+    Dimensions.get("window").width / 4
+  );
+
+  const updateLayout = () => {
+    setButtonWidth(Dimensions.get("window").width / 4);
+  };
+
+  Dimensions.addEventListener("change", updateLayout);
 
   const handleNumInput = (inputText) => {
     setValue(inputText.replace(/[^0-9]/g, ""));
@@ -82,7 +91,7 @@ export default function StartScreen({ onStart }) {
               />
 
               <View style={styles.btnBox}>
-                <View style={styles.button}>
+                <View style={{ width: buttonWidth }}>
                   <Button
                     title="Reset"
                     onPress={() => {
@@ -91,7 +100,7 @@ export default function StartScreen({ onStart }) {
                     color={Colors.accent}
                   />
                 </View>
-                <View style={styles.button}>
+                <View style={{ width: buttonWidth }}>
                   <Button
                     title="Confirm"
                     onPress={handleConfirm}
@@ -131,10 +140,16 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     paddingHorizontal: 15,
   },
+  /*
   button: {
     // width: 100,
-    width: Dimensions.get("window").width / 4,
+ 
+    width: Dimensions.get("window").width / 4, // this only runs once in app lifecycle => need to account for device orientation change
+    
+
+    width: buttonWidth,
   },
+  */
   input: {
     width: 50,
     textAlign: "center",
