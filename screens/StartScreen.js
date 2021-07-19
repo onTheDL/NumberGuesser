@@ -8,6 +8,8 @@ import {
   Keyboard,
   Alert,
   Dimensions,
+  ScrollView,
+  KeyboardAvoidingView,
 } from "react-native";
 
 import Card from "../components/Card";
@@ -56,49 +58,53 @@ export default function StartScreen({ onStart }) {
   }
 
   return (
-    <TouchableWithoutFeedback
-      onPress={() => {
-        Keyboard.dismiss;
-      }}
-    >
-      <View style={styles.screen}>
-        <TitleText style={styles.title}>Start a New Game</TitleText>
-        <Card style={styles.inputContainer}>
-          <BodyText>Select a Number</BodyText>
+    <ScrollView>
+      <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={30}>
+        <TouchableWithoutFeedback
+          onPress={() => {
+            Keyboard.dismiss;
+          }}
+        >
+          <View style={styles.screen}>
+            <TitleText style={styles.title}>Start a New Game</TitleText>
+            <Card style={styles.inputContainer}>
+              <BodyText>Select a Number</BodyText>
 
-          <Input
-            style={styles.input}
-            blurOnSubmit
-            autoCapitalize="none"
-            autoCorrect={false}
-            keyboardType="number-pad"
-            maxLength={2}
-            onChangeText={handleNumInput}
-            value={value}
-          />
+              <Input
+                style={styles.input}
+                blurOnSubmit
+                autoCapitalize="none"
+                autoCorrect={false}
+                keyboardType="number-pad"
+                maxLength={2}
+                onChangeText={handleNumInput}
+                value={value}
+              />
 
-          <View style={styles.btnBox}>
-            <View style={styles.button}>
-              <Button
-                title="Reset"
-                onPress={() => {
-                  setValue("");
-                }}
-                color={Colors.accent}
-              />
-            </View>
-            <View style={styles.button}>
-              <Button
-                title="Confirm"
-                onPress={handleConfirm}
-                color={Colors.primary}
-              />
-            </View>
+              <View style={styles.btnBox}>
+                <View style={styles.button}>
+                  <Button
+                    title="Reset"
+                    onPress={() => {
+                      setValue("");
+                    }}
+                    color={Colors.accent}
+                  />
+                </View>
+                <View style={styles.button}>
+                  <Button
+                    title="Confirm"
+                    onPress={handleConfirm}
+                    color={Colors.primary}
+                  />
+                </View>
+              </View>
+            </Card>
+            {confirmedOutput}
           </View>
-        </Card>
-        {confirmedOutput}
-      </View>
-    </TouchableWithoutFeedback>
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
+    </ScrollView>
   );
 }
 
@@ -110,8 +116,8 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
   },
   inputContainer: {
-    width: '80%',
-    maxWidth: '95%',
+    width: "80%",
+    maxWidth: "95%",
     minWidth: 300,
     alignItems: "center",
   },
@@ -127,7 +133,7 @@ const styles = StyleSheet.create({
   },
   button: {
     // width: 100,
-    width: Dimensions.get('window').width / 4,
+    width: Dimensions.get("window").width / 4,
   },
   input: {
     width: 50,
