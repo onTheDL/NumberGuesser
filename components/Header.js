@@ -6,23 +6,37 @@ import TitleText from "./TitleText";
 
 export default function Header({ title }) {
   return (
-    <View style={styles.header}>
+    <View
+      style={{
+        ...styles.headerBase,
+        ...Platform.select({
+          ios: styles.headerIOS,
+          android: styles.headerAndroid,
+        }),
+      }}
+    >
       <TitleText style={styles.title}>{title}</TitleText>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  header: {
+  headerBase: {
     width: "100%",
     height: 90,
-    backgroundColor: Platform.OS === "android" ? Colors.primary : "white",
+    paddingTop: 36,
     alignItems: "center",
     justifyContent: "center",
-    borderBottomColor: Platform.OS === "ios" ? "#ccc" : "transparent",
-    borderWidth: Platform.OS === "ios" ? 1 : 0,
+  },
+  headerIOS: {
+    backgroundColor: "white",
+    borderBottomColor: "#ccc",
+    borderWidth: 1,
+  },
+  headerAndroid: {
+    backgroundColor: Colors.primary,
   },
   title: {
-    color: Platform.OS === 'android' ? 'white' : Colors.primary,
-  }
+    color: Platform.OS === "android" ? "white" : Colors.primary,
+  },
 });
