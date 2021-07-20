@@ -7,6 +7,7 @@ import {
   Dimensions,
   ScrollView,
 } from "react-native";
+import * as ScreenOrientation from 'expo-screen-orientation'
 
 import BodyText from "../components/BodyText";
 import TitleText from "../components/TitleText";

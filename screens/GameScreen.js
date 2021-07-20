@@ -9,6 +9,7 @@ import {
   Dimensions,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import * as ScreenOrientation from 'expo-screen-orientation'
 
 import NumberContainer from "../components/NumberContainer";
 import Card from "../components/Card";
@@ -36,6 +37,9 @@ const renderListItem = (listLength, itemData) => (
 );
 
 function GameScreen({ userChoice, onGameOver }) {
+  
+
+
   const initialGuess = genRandomBetween(1, 100, userChoice);
   const [currentGuess, setGuess] = useState(initialGuess);
   const [prevGuesses, setPrevGuesses] = useState([initialGuess.toString()]);
